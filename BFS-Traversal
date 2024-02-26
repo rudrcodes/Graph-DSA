@@ -1,4 +1,6 @@
- vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+TC : O(N) + O(2*E)
+SC : O(N)
+vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         // Code here
         vector<int> bfs;
         
