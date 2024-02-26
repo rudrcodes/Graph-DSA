@@ -1,0 +1,38 @@
+ vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+        // Code here
+        vector<int> bfs;
+        
+        // For BFS we take queue (same we take in trees for bfs or LOT (Level Order Traversal) )
+        queue<int> q;
+        
+        // Push the starting node from where traversal will begin
+        q.push(0);
+        
+        //To keep track of visited nodes so we don't revisit and print them again
+        vector<int> vis(V+1,0);
+        
+        // To show it's visited
+        vis[0]=1;
+        
+        while(q.size()>0){
+            int frontEl=q.front();
+            q.pop();
+            bfs.push_back(frontEl);
+            vis[frontEl]=1;
+            
+            //push all connected nodes of the front element of queue into the queue 
+            vector<int> temp=adj[frontEl];
+            
+            for(auto it:temp){
+                if(vis[it]==0){
+                    q.push(it);
+                }
+                vis[it]=1;
+            }
+            
+            
+        }
+        
+        
+        return bfs;
+    }
