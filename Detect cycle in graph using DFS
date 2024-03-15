@@ -1,0 +1,46 @@
+## Detect cycle in graph using DFS 
+```
+class Solution {
+private:
+ bool bfsDetectCycle(int src,int parent, vector<int>& vis, vector<int> adj[]) {
+
+        vis[src] = 1;
+
+            for (auto it : adj[src]) {
+                if (vis[it] == 0) {
+                    // visit this node and push it into q
+                    vis[it] = 1;
+                   if(bfsDetectCycle(it,src,vis,adj)==true) return true;
+
+                } else if (it != parent){
+                        return true;
+                }
+            }
+
+
+        return false;
+    }
+public:
+
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+
+        // Queue is always used for BFS
+
+        // queue<pair<int,int>> q;
+        vector<int> vis(V, 0);
+
+        for (int i = 0; i < V; i++) {
+            if (vis[i] == 0) {
+                // not visited
+                if (bfsDetectCycle(i,-1, vis, adj) == true) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+};
+
+```
