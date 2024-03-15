@@ -1,0 +1,54 @@
+## Detect Cycle in an Undirected Graph (using BFS)
+
+class Solution {
+    private:
+    bool bfsDetectCycle(int src, int vis[],vector<int> adj[]){
+        
+        vis[src]=1;
+           queue<pair<int,int>> q;
+        q.push({src,-1});
+        
+        while(q.empty()==false){
+            pair<int,int> p=q.front();
+            q.pop();
+            
+            int node=p.first;
+            int parent=p.second;
+            
+            for(auto it:adj[node]){
+                if(vis[it]==0){
+                    //visit this node and push it into q
+                    vis[it]=1;
+                    q.push({it,node});
+                }
+                else{
+                    if(it!=parent) return true;
+                }
+            }
+        }
+        
+        return false;
+        
+    }
+    
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+
+        //Queue is always used for BFS
+
+        // queue<pair<int,int>> q;
+        int vis[V]={0};
+        
+        for(int i=0;i<V;i++){
+            if(vis[i]==0){
+                //not visited
+                if(bfsDetectCycle(i,vis,adj)==true){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
