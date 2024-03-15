@@ -3,6 +3,11 @@
 ## TC : same as BFS (will go to each node and each nodes adjacent nodes -> O(V + 2E) + O(V) (For the for loop for visited array , not multiplied bcoz we will not call that for each node) 
 ## SC :  O(V)
 
+## doubt in TC:
+We are not multiplying and are only adding the TC O(V) for looping on the visited vector , reason given by striver for that is because
+we are not going to call that for each node as most nodes will be visited when starting from a node , but my doubt is still hum call toh number of
+nodes ke liye hi krenge na vis vector vale loop mein voh alag baat h ki dfs() function call kis kis ke liye hoga 🤷‼️
+
 class Solution {
     private:
     bool bfsDetectCycle(int src, int vis[],vector<int> adj[]){
