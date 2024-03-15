@@ -1,5 +1,8 @@
 ## Detect Cycle in an Undirected Graph (using BFS)
 
+## TC : same as BFS (will go to each node and each nodes adjacent nodes -> O(V + 2E) + O(V) (For the for loop for visited array , not multiplied bcoz we will not call that for each node) 
+## SC :  O(V)
+
 class Solution {
     private:
     bool bfsDetectCycle(int src, int vis[],vector<int> adj[]){
