@@ -1,4 +1,5 @@
-## Detect cycle in graph using DFS 
+## Detect Cycle in an Undirected Graph (using DFS)
+
 ```
 class Solution {
 private:
