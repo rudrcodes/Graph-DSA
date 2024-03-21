@@ -3,6 +3,8 @@
 
 ### Code : 
 
+Time Complexity : Same as DFS
+
 class Solution {
     private:
     bool dfs(int node,vector<int> &vis,vector<int> &pathVis,vector<int> adj[],vector<int> &ans){
@@ -37,6 +39,7 @@ class Solution {
   public:
     vector<int> eventualSafeNodes(int v, vector<int> adj[]) {
         // code here
+        // Logic :
         // Any node which will be part of a cycle won't be a safe node
         //Thought Process :
         // Find path where we get cycle and mark those nodes not safe 
