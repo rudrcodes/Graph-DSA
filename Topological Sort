@@ -1,6 +1,8 @@
 # GFG : Topological Sort
 ## Link: https://www.geeksforgeeks.org/problems/topological-sort/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
 
+## TC: Same as of DFS for directed graphs -> O(V + E)
+## SC: O(V){Recursion function call stack space} + O(V){Visited vector and ans vector  size} -> O(V)
 ## Code: 
 class Solution
 {
