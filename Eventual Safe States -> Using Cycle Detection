@@ -1,12 +1,13 @@
 ## GFG : Eventual Safe States -> Using Cycle Detection : 
 #### Link: https://www.geeksforgeeks.org/problems/eventual-safe-states/1
 
-### Code : 
 
-Time Complexity : Same as DFS
+### Time Complexity: Same as DFS
 ### Logic :
-- Any node who is part of a cycle will never be a safe node.
-- Any node which leads to a node which is part of a cycle will also never be a safe node.
+- Any node that is part of a cycle will never be a safe node.
+- Any node that leads to a node that is part of a cycle will also never be a safe node.
+
+### Code : 
 
 class Solution {
     private:
@@ -29,6 +30,7 @@ class Solution {
                 }
             }
             else if(pathVis[it]==1 || ans[it]==0){
+                //ans[it] ==0 -> states that the index is already visited and it is not safe
                 //there's a cycle
                 ans[it]=0;
                 ans[node]=0;
@@ -42,7 +44,6 @@ class Solution {
   public:
     vector<int> eventualSafeNodes(int v, vector<int> adj[]) {
         // code here
-        // Logic :
         // Any node which will be part of a cycle won't be a safe node
         //Thought Process :
         // Find path where we get cycle and mark those nodes not safe 
@@ -50,12 +51,14 @@ class Solution {
         //keeps track of whichever node is occurs/present in the path
         vector<int> pathVis(v,0);
         
-        //0 -> unsafe , 1-> safe
+        // 0 -> node is  unsafe 
+        // 1-> node is safe 
+        // -1 -> Don't know about that node
         //initially all will be safe
-        vector<int> ans(v,1);
+        vector<int> ans(v,-1);
         
         for(int i=0;i<v;i++){
-            if(!vis[i] && ans[i]==1){
+            if(!vis[i] && ans[i]==-1){
                 //not visited or if the node is safe , check it's safeness by checking if the node is present in any path
                 //if it has cycle dfs returns true
                 if(dfs(i,vis,pathVis,adj,ans)==false){
