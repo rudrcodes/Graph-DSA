@@ -1,1 +1,61 @@
+# CS 1 :
+### TC : O(V+E) -> Similar to BFS of directed graph
+### Code: 
+class Solution {
+public:
+    bool canFinish(int V, vector<vector<int>>& mat) {
+        // Using Topo sort
+        // If there will be cycle we can't perform all the tasks , as case of
+        // cyclic dependency will occur like OS ka concept hota hai na, resource
+        // se related Deadlock situation :
+        //  Process P1 has resource R1 and wants R2 to do the work , then only
+        //  P1 will release all it's resources& Process P2 has resource R2 and
+        //  wants R1 to do the work, then only P2 will release all it's
+        //  resources .
 
+        // If the TOPO sort will contain all the elements then it is not having
+        // a cycle and all tasks can be finished, else not.
+        //  Using Kahn's Algo (Topo Sort by BFS)
+
+//Form adj using given matrix
+
+vector<int> adj[V];
+for(auto it:mat){
+    int u=it[0];
+    int v=it[1];
+    adj[u].push_back(v);
+}
+        vector<int> ind(V,0);
+        // vector<int> ans;
+        int cnt = 0;
+        queue<int> q;
+
+        for (int i = 0; i < V; i++) {
+            for (auto it : adj[i]) {
+                ind[it]++;
+            }
+        }
+
+        for (int i = 0; i < V; i++) {
+            if (ind[i] == 0) {
+                q.push(i);
+            }
+        }
+
+        while (!q.empty()) {
+            int node = q.front();
+            // ans.push_back(node);
+            cnt++;
+            q.pop();
+
+            for (auto it : adj[node]) {
+                ind[it]--;
+                if (ind[it] == 0) {
+                    q.push(it);
+                }
+            }
+        }
+
+        return (cnt == V);
+    }
+};
