@@ -1,0 +1,53 @@
+# G-23. Detect a Cycle in Directed Graph | Topological Sort | Kahn's Algorithm | BFS
+## Why does it work here?
+- We know Topo sort only works for DAG, then how can we apply it in a directed graph which may have cycle?
+- Here's how, if the graph given to us is not having a cycle, then the ordering produced by Topo sort will contain n (number of node) in it.
+- But if the graph given to us has a cycle, then the ordering produced by Topo sort will not contain n (number of nodes) in it.
+
+
+## TC : Simple BFS -> O(V + E)
+### Code: 
+
+class Solution {
+  public:
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<int> adj[]) {
+        // code here
+        // Using Kahn's Algo (Topo Sort by BFS)
+        
+        int ind[V]={0};
+        // vector<int> ans;
+        int cnt=0;
+        queue<int> q;
+        
+        for(int i=0;i<V;i++){
+            for(auto it:adj[i]){
+                ind[it]++;
+            }
+        }
+        
+        for(int i=0;i<V;i++){
+            if(ind[i]==0){
+                q.push(i);
+            }
+        }
+        
+        while(!q.empty()){
+            int node=q.front();
+            // ans.push_back(node);
+            cnt++;
+            q.pop();
+            
+            for(auto it:adj[node]){
+                ind[it]--;
+                if(ind[it]==0){
+                    q.push(it);
+                }
+            }
+        }
+        
+        return (cnt!=V);
+        
+        
+    }
+};
