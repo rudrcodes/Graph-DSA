@@ -1,0 +1,43 @@
+# GFG : Topological Sort
+## Link: https://www.geeksforgeeks.org/problems/topological-sort/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+
+## Code: 
+class Solution
+{
+    
+    private:
+    void dfs(int node,vector<int>& vis,vector<int> adj[],stack<int> &st){
+        vis[node]=1;
+        
+        for(auto it:adj[node]){
+            if(vis[it]==0){
+                dfs(it,vis,adj,st);
+            }
+        }
+        st.push(node);
+        // return ;
+    }
+	public:
+	//Function to return list containing vertices in Topological order. 
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    vector<int> ans;
+	   vector<int> vis(V,0);
+	   stack<int> st;
+	   
+	   for(int i=0;i<V;i++){
+	       if(vis[i]==0){
+	           //node not visited , hence visit this
+	           dfs(i,vis,adj,st);
+	       }
+	   }
+	   
+	   while(!st.empty()){
+	       int node=st.top();
+	       st.pop();
+	       ans.push_back(node);
+	   }
+	    
+	    return ans;
+	}
+};
