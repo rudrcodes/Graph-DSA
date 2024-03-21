@@ -1,0 +1,73 @@
+## GFG : Eventual Safe States -> Using Cycle Detection : 
+#### Link: https://www.geeksforgeeks.org/problems/eventual-safe-states/1
+
+### Code : 
+
+class Solution {
+    private:
+    bool dfs(int node,vector<int> &vis,vector<int> &pathVis,vector<int> adj[],vector<int> &ans){
+        vis[node]=1;
+        pathVis[node]=1;
+        for(auto it:adj[node]){
+            //visit all the neighboring nodes in DFS manner
+            //if it(node) not visited , visit it
+            if(vis[it]==0){
+                //visit it
+                if(dfs(it,vis,pathVis,adj,ans)){
+                //if dfs returns true , it means there's a cycle and this node is in that cycle and hence this node can never be part of the safe node group,
+                // So mark this node as unsafe
+                ans[it]=0;
+                ans[node]=0;
+                return true;
+                } else{
+                    ans[it]=1;
+                }
+            }
+            else if(pathVis[it]==1 || ans[it]==0){
+                //there's a cycle
+                ans[it]=0;
+                ans[node]=0;
+                return true;
+            }
+        }
+        
+        pathVis[node]=0;
+        return false;
+    }
+  public:
+    vector<int> eventualSafeNodes(int v, vector<int> adj[]) {
+        // code here
+        // Any node which will be part of a cycle won't be a safe node
+        //Thought Process :
+        // Find path where we get cycle and mark those nodes not safe 
+        vector<int> vis(v,0);
+        //keeps track of whichever node is occurs/present in the path
+        vector<int> pathVis(v,0);
+        
+        //0 -> unsafe , 1-> safe
+        //initially all will be safe
+        vector<int> ans(v,1);
+        
+        for(int i=0;i<v;i++){
+            if(!vis[i] && ans[i]==1){
+                //not visited or if the node is safe , check it's safeness by checking if the node is present in any path
+                //if it has cycle dfs returns true
+                if(dfs(i,vis,pathVis,adj,ans)==false){
+                    ans[i]=1;
+                }    
+            }
+        }
+        
+        vector<int> safeNodes;
+        int i=0;
+        for(auto it:ans){
+            if(it==1){
+                safeNodes.push_back(i);
+            }
+            i++;
+        }
+        
+    
+        return safeNodes;
+    }
+};
