@@ -4,6 +4,9 @@
 ### Code : 
 
 Time Complexity : Same as DFS
+### Logic :
+- Any node who is part of a cycle will never be a safe node.
+- Any node which leads to a node which is part of a cycle will also never be a safe node.
 
 class Solution {
     private:
